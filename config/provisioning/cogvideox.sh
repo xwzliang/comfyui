@@ -85,9 +85,10 @@ function provisioning_get_custom_models() {
         filepath=$(echo "$entry" | awk '{print $1}')
         url=$(echo "$entry" | awk '{print $2}')
         dir=$(dirname $filepath)
-        mkdir -p "${WORKSPACE}/storage/stable_diffusion/models/$dir"
+        full_dir="${WORKSPACE}/storage/stable_diffusion/models/${dir}"
+        mkdir -p "${full_dir}"
         printf "\n-----------------Downloading: %s\n" "${url}"
-        provisioning_download "${url}" "${dir}"
+        provisioning_download "${url}" "${full_dir}"
         printf "\n"
     done
 }
@@ -200,6 +201,7 @@ function provisioning_get_default_workflow() {
     printf "\n-----------------getting default workflow\n"
     if [[ -n $DEFAULT_WORKFLOW ]]; then
         workflow_json=$(curl -s "$DEFAULT_WORKFLOW")
+        printf "\n-----------------default workflow is in here: $workflow_json\n"
         if [[ -n $workflow_json ]]; then
             echo "export const defaultGraph = $workflow_json;" > /opt/ComfyUI/web/scripts/defaultGraph.js
         fi
