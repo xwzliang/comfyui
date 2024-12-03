@@ -81,10 +81,12 @@ CONTROLNET_MODELS=(
 )
 
 function provisioning_get_custom_models() {
+    printf "--------------------Downloading custom models\n"
     for file in "${!CUSTOM_MODELS[@]}"; do
+        printf "--------------------Downloading custom models %s\n" "${file}"
         dir=$(dirname file)
         mkdir -p "${WORKSPACE}/storage/stable_diffusion/models/$dir"
-        url=${CUSTOM_MODELS[$file]}
+        url=${CUSTOM_MODELS["${file}"]}
         printf "Downloading: %s\n" "${url}"
         provisioning_download "${url}" "${dir}"
         printf "\n"
@@ -122,11 +124,11 @@ function provisioning_start() {
 
     provisioning_print_header
     provisioning_get_apt_packages
+    provisioning_get_custom_models
+    provisioning_get_default_workflow
     provisioning_get_nodes
     provisioning_get_frame_interpolation
     provisioning_get_pip_packages
-    provisioning_get_custom_models
-    provisioning_get_default_workflow
     provisioning_get_models \
         "${WORKSPACE}/storage/stable_diffusion/models/ckpt" \
         "${CHECKPOINT_MODELS[@]}"
@@ -196,6 +198,7 @@ function provisioning_get_nodes() {
 }
 
 function provisioning_get_default_workflow() {
+    printf "--------------------getting default workflow\n"
     if [[ -n $DEFAULT_WORKFLOW ]]; then
         workflow_json=$(curl -s "$DEFAULT_WORKFLOW")
         if [[ -n $workflow_json ]]; then
