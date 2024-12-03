@@ -27,7 +27,7 @@ NODES=(
 )
 
 CUSTOM_MODELS=(
-    ["clip/t5/google_t5-v1_1-xxl_encoderonly-fp16.safetensors"]="https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/model.safetensors"
+    "clip/t5/google_t5-v1_1-xxl_encoderonly-fp16.safetensors https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/model.safetensors"
 )
 
 CHECKPOINT_MODELS=(
@@ -81,13 +81,12 @@ CONTROLNET_MODELS=(
 )
 
 function provisioning_get_custom_models() {
-    printf "--------------------Downloading custom models\n"
-    for file in "${!CUSTOM_MODELS[@]}"; do
-        printf "--------------------Downloading custom models %s\n" "${file}"
-        dir=$(dirname file)
+    for entry in "${CUSTOM_MODELS[@]}"; do
+        filepath=$(echo "$entry" | awk '{print $1}')
+        url=$(echo "$entry" | awk '{print $2}')
+        dir=$(dirname $filepath)
         mkdir -p "${WORKSPACE}/storage/stable_diffusion/models/$dir"
-        url=${CUSTOM_MODELS["${file}"]}
-        printf "Downloading: %s\n" "${url}"
+        printf "-----------------Downloading: %s\n" "${url}"
         provisioning_download "${url}" "${dir}"
         printf "\n"
     done
@@ -198,7 +197,7 @@ function provisioning_get_nodes() {
 }
 
 function provisioning_get_default_workflow() {
-    printf "--------------------getting default workflow\n"
+    printf "-----------------getting default workflow\n"
     if [[ -n $DEFAULT_WORKFLOW ]]; then
         workflow_json=$(curl -s "$DEFAULT_WORKFLOW")
         if [[ -n $workflow_json ]]; then
@@ -230,7 +229,7 @@ function provisioning_print_header() {
 }
 
 function provisioning_print_end() {
-    printf "\nProvisioning complete:  Web UI will start now\n\n"
+    printf "\n-----------------Provisioning complete:  Web UI will start now\n\n"
 }
 
 function provisioning_has_valid_hf_token() {
