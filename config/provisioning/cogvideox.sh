@@ -89,7 +89,7 @@ function provisioning_get_custom_models() {
         full_dir="${WORKSPACE}/storage/stable_diffusion/models/${dir}"
         mkdir -p "${full_dir}"
         printf "\n-----------------Downloading: %s\n" "${url}"
-        provisioning_download "${url}" "${full_dir}/${filename}"
+        provisioning_download_with_filename "${url}" "${full_dir}/${filename}"
         printf "\n"
     done
 }
