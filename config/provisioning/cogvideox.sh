@@ -125,7 +125,6 @@ function provisioning_start() {
     provisioning_print_header
     provisioning_get_apt_packages
     provisioning_get_custom_models
-    provisioning_get_default_workflow
     provisioning_get_nodes
     provisioning_get_frame_interpolation
     provisioning_get_pip_packages
@@ -147,6 +146,7 @@ function provisioning_start() {
     provisioning_get_models \
         "${WORKSPACE}/storage/stable_diffusion/models/esrgan" \
         "${ESRGAN_MODELS[@]}"
+    provisioning_get_default_workflow
     provisioning_print_end
 }
 
@@ -203,7 +203,13 @@ function provisioning_get_default_workflow() {
         workflow_json=$(curl -s "$DEFAULT_WORKFLOW")
         printf "\n-----------------default workflow is in here: $workflow_json\n"
         if [[ -n $workflow_json ]]; then
-            echo "export const defaultGraph = $workflow_json;" > /opt/ComfyUI/web/scripts/defaultGraph.js
+            # workflow_filename=$(basename $workflow_json)
+            # cp $workflow_json /opt/ComfyUI/web/assets/
+            INDEX_FILE=$(awk '/<script type="module" crossorigin src/' /opt/ComfyUI/web/index.html | awk -F'"' '{print $4}')
+            printf "\n-----------------INDEX_FILE found: $INDEX_FILE\n"
+            sed -i 's/const\ defaultGraph/let\ defaultGraph/g' /opt/ComfyUI/web/$INDEX_FILE
+            sed -i '/window\.comfyAPI\.defaultGraph\.defaultGraph/i defaultGraph='"$(cat ${workflow_json} | tr -d '\n')"';' /opt/ComfyUI/web/$INDEX_FILE
+            # echo "export const defaultGraph = $workflow_json;" > /opt/ComfyUI/web/scripts/defaultGraph.js
         fi
     fi
 }
