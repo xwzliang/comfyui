@@ -86,7 +86,7 @@ function provisioning_get_custom_models() {
         url=$(echo "$entry" | awk '{print $2}')
         dir=$(dirname $filepath)
         mkdir -p "${WORKSPACE}/storage/stable_diffusion/models/$dir"
-        printf "-----------------Downloading: %s\n" "${url}"
+        printf "\n-----------------Downloading: %s\n" "${url}"
         provisioning_download "${url}" "${dir}"
         printf "\n"
     done
@@ -197,7 +197,7 @@ function provisioning_get_nodes() {
 }
 
 function provisioning_get_default_workflow() {
-    printf "-----------------getting default workflow\n"
+    printf "\n-----------------getting default workflow\n"
     if [[ -n $DEFAULT_WORKFLOW ]]; then
         workflow_json=$(curl -s "$DEFAULT_WORKFLOW")
         if [[ -n $workflow_json ]]; then
