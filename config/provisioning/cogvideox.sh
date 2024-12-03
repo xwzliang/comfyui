@@ -85,10 +85,11 @@ function provisioning_get_custom_models() {
         filepath=$(echo "$entry" | awk '{print $1}')
         url=$(echo "$entry" | awk '{print $2}')
         dir=$(dirname $filepath)
+        filename=$(basename $filepath)
         full_dir="${WORKSPACE}/storage/stable_diffusion/models/${dir}"
         mkdir -p "${full_dir}"
         printf "\n-----------------Downloading: %s\n" "${url}"
-        provisioning_download "${url}" "${full_dir}"
+        provisioning_download "${url}" "${full_dir}/${filename}"
         printf "\n"
     done
 }
@@ -200,7 +201,7 @@ function provisioning_get_nodes() {
 function provisioning_get_default_workflow() {
     printf "\n-----------------getting default workflow\n"
     if [[ -n $DEFAULT_WORKFLOW ]]; then
-        workflow_json=$(curl -s "$DEFAULT_WORKFLOW")
+        workflow_json=$(curl -s "$DEFAULT_WORKFLOW" | tr -d '\n')
         printf "\n-----------------default workflow is in here: $workflow_json\n"
         if [[ -n $workflow_json ]]; then
             # workflow_filename=$(basename $workflow_json)
@@ -208,7 +209,7 @@ function provisioning_get_default_workflow() {
             INDEX_FILE=$(awk '/<script type="module" crossorigin src/' /opt/ComfyUI/web/index.html | awk -F'"' '{print $4}')
             printf "\n-----------------INDEX_FILE found: $INDEX_FILE\n"
             sed -i 's/const\ defaultGraph/let\ defaultGraph/g' /opt/ComfyUI/web/$INDEX_FILE
-            sed -i '/window\.comfyAPI\.defaultGraph\.defaultGraph/i defaultGraph='"$(cat ${workflow_json} | tr -d '\n')"';' /opt/ComfyUI/web/$INDEX_FILE
+            sed -i '/window\.comfyAPI\.defaultGraph\.defaultGraph/i defaultGraph='"${workflow_json}"';' /opt/ComfyUI/web/$INDEX_FILE
             # echo "export const defaultGraph = $workflow_json;" > /opt/ComfyUI/web/scripts/defaultGraph.js
         fi
     fi
@@ -285,6 +286,11 @@ function provisioning_download() {
     else
         wget -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
     fi
+}
+
+# Download from $1 URL to $2 file path (with filename)
+function provisioning_download_with_filename() {
+    wget -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -O "$2" "$1"
 }
 
 provisioning_start
