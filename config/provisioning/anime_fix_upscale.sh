@@ -169,7 +169,11 @@ function provisioning_start() {
 }
 
 function python_run() {
-    micromamba run -n comfyui python "$@"
+    if [[ -z $MAMBA_BASE ]]; then
+            "$COMFYUI_VENV_PYTHON" "$@"
+        else
+            micromamba run -n comfyui python "$@"
+        fi
 }
 
 function pip_install() {
