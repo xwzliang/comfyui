@@ -2,7 +2,7 @@
 
 # This file will be sourced in init.sh
 
-# https://raw.githubusercontent.com/ai-dock/comfyui/main/config/provisioning/default.sh
+# https://raw.githubusercontent.com/xwzliang/comfyui/refs/heads/main/config/provisioning/anime_fix_upscale.sh
 
 # Packages are installed after nodes so we can fix them...
 
