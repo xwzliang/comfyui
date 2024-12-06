@@ -147,54 +147,6 @@
       ]
     },
     {
-      "id": 60,
-      "type": "CogVideoDecode",
-      "pos": [
-        1523,
-        -6
-      ],
-      "size": [
-        315,
-        198
-      ],
-      "flags": {},
-      "order": 8,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 132
-        },
-        {
-          "name": "samples",
-          "type": "LATENT",
-          "link": 148
-        }
-      ],
-      "outputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "links": [
-            150
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CogVideoDecode"
-      },
-      "widgets_values": [
-        true,
-        240,
-        360,
-        0.2,
-        0.2,
-        true
-      ]
-    },
-    {
       "id": 20,
       "type": "CLIPLoader",
       "pos": [
@@ -264,8 +216,203 @@
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "d4b10067-a2e8-463c-959a-851490e5f0fd.png",
+        "86e61788-5953-482b-959e-b8a551592e2b.png",
         "image"
+      ]
+    },
+    {
+      "id": 62,
+      "type": "CogVideoImageEncode",
+      "pos": [
+        1392,
+        755.0999755859375
+      ],
+      "size": [
+        315,
+        194
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 141
+        },
+        {
+          "name": "start_image",
+          "type": "IMAGE",
+          "link": 142
+        },
+        {
+          "name": "end_image",
+          "type": "IMAGE",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "links": [
+            147
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CogVideoImageEncode"
+      },
+      "widgets_values": [
+        false,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 60,
+      "type": "CogVideoDecode",
+      "pos": [
+        1472.4005126953125,
+        68.79998016357422
+      ],
+      "size": [
+        315,
+        198
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 132
+        },
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 148
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            150
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CogVideoDecode"
+      },
+      "widgets_values": [
+        true,
+        240,
+        360,
+        0.2,
+        0.2,
+        true
+      ]
+    },
+    {
+      "id": 31,
+      "type": "CogVideoTextEncode",
+      "pos": [
+        497,
+        520
+      ],
+      "size": [
+        463.01251220703125,
+        144
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 149
+        }
+      ],
+      "outputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "links": [
+            146
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CogVideoTextEncode"
+      },
+      "widgets_values": [
+        "large movements, text, watermark, horror, surprise, angry, mustache, beard",
+        1,
+        true
+      ]
+    },
+    {
+      "id": 65,
+      "type": "RIFE VFI",
+      "pos": [
+        1916.4697265625,
+        118.0198974609375
+      ],
+      "size": [
+        478.8000183105469,
+        198
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "frames",
+          "type": "IMAGE",
+          "link": 150
+        },
+        {
+          "name": "optional_interpolation_states",
+          "type": "INTERPOLATION_STATES",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            151
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RIFE VFI"
+      },
+      "widgets_values": [
+        "rife47.pth",
+        10,
+        3,
+        true,
+        true,
+        1
       ]
     },
     {
@@ -319,7 +466,7 @@
         "Node name for S&R": "VHS_VideoCombine"
       },
       "widgets_values": {
-        "frame_rate": 32,
+        "frame_rate": 48,
         "loop_count": 0,
         "filename_prefix": "CogVideoX_1_5_I2V",
         "format": "video/h264-mp4",
@@ -332,15 +479,64 @@
           "hidden": false,
           "paused": false,
           "params": {
-            "filename": "CogVideoX_1_5_I2V_00016.mp4",
+            "filename": "CogVideoX_1_5_I2V_00034.mp4",
             "subfolder": "",
             "type": "output",
             "format": "video/h264-mp4",
-            "frame_rate": 32
+            "frame_rate": 48
           },
           "muted": false
         }
       }
+    },
+    {
+      "id": 30,
+      "type": "CogVideoTextEncode",
+      "pos": [
+        493,
+        303
+      ],
+      "size": [
+        471.90142822265625,
+        168.08047485351562
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 54
+        }
+      ],
+      "outputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "links": [
+            145
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "links": [
+            149
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CogVideoTextEncode"
+      },
+      "widgets_values": [
+        "this is the back view, the two people are walking on the runway of the track field, holding hand in hand, anime style",
+        3,
+        false
+      ]
     },
     {
       "id": 63,
@@ -423,208 +619,12 @@
       },
       "widgets_values": [
         49,
-        50,
+        25,
         16,
-        773883786567323,
+        125243226013005,
         "randomize",
         "CogVideoXDDIM",
         1
-      ]
-    },
-    {
-      "id": 62,
-      "type": "CogVideoImageEncode",
-      "pos": [
-        1392,
-        755.0999755859375
-      ],
-      "size": [
-        315,
-        194
-      ],
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 141
-        },
-        {
-          "name": "start_image",
-          "type": "IMAGE",
-          "link": 142
-        },
-        {
-          "name": "end_image",
-          "type": "IMAGE",
-          "link": null,
-          "shape": 7
-        }
-      ],
-      "outputs": [
-        {
-          "name": "samples",
-          "type": "LATENT",
-          "links": [
-            147
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CogVideoImageEncode"
-      },
-      "widgets_values": [
-        false,
-        0,
-        1,
-        0,
-        1
-      ]
-    },
-    {
-      "id": 31,
-      "type": "CogVideoTextEncode",
-      "pos": [
-        497,
-        520
-      ],
-      "size": [
-        463.01251220703125,
-        144
-      ],
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 149
-        }
-      ],
-      "outputs": [
-        {
-          "name": "conditioning",
-          "type": "CONDITIONING",
-          "links": [
-            146
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CogVideoTextEncode"
-      },
-      "widgets_values": [
-        "large movements, text, watermark, horror, surprise, angry",
-        1,
-        true
-      ]
-    },
-    {
-      "id": 65,
-      "type": "RIFE VFI",
-      "pos": [
-        1887.4697265625,
-        119.0198974609375
-      ],
-      "size": [
-        478.8000183105469,
-        198
-      ],
-      "flags": {},
-      "order": 9,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "frames",
-          "type": "IMAGE",
-          "link": 150
-        },
-        {
-          "name": "optional_interpolation_states",
-          "type": "INTERPOLATION_STATES",
-          "link": null,
-          "shape": 7
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            151
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "RIFE VFI"
-      },
-      "widgets_values": [
-        "rife47.pth",
-        10,
-        2,
-        true,
-        true,
-        1
-      ]
-    },
-    {
-      "id": 30,
-      "type": "CogVideoTextEncode",
-      "pos": [
-        493,
-        303
-      ],
-      "size": [
-        471.90142822265625,
-        168.08047485351562
-      ],
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 54
-        }
-      ],
-      "outputs": [
-        {
-          "name": "conditioning",
-          "type": "CONDITIONING",
-          "links": [
-            145
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "links": [
-            149
-          ],
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CogVideoTextEncode"
-      },
-      "widgets_values": [
-        "the girl is going to the library alone in the morning, she walks slowly",
-        3,
-        false
       ]
     }
   ],
@@ -738,10 +738,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.6830134553650712,
+      "scale": 1,
       "offset": [
-        -651.8596951046343,
-        63.4327023839438
+        -1125.1379455046163,
+        -197.59176750239652
       ]
     }
   },
