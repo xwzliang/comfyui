@@ -136,10 +136,10 @@ function provisioning_start() {
 
     provisioning_print_header
     provisioning_get_apt_packages
-    provisioning_get_custom_models
+    provisioning_get_pip_packages
     provisioning_get_nodes
     provisioning_get_frame_interpolation
-    provisioning_get_pip_packages
+    provisioning_get_custom_models
     provisioning_get_models \
         "${WORKSPACE}/storage/stable_diffusion/models/ckpt" \
         "${CHECKPOINT_MODELS[@]}"
