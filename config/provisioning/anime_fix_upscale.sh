@@ -231,7 +231,7 @@ function provisioning_get_nodes() {
 function provisioning_get_default_workflow() {
     printf "\n-----------------getting default workflow\n"
     if [[ -n $DEFAULT_WORKFLOW ]]; then
-        workflow_json=$(curl -s "$DEFAULT_WORKFLOW" | tr -d '\n')
+        workflow_json=$(curl -s "$DEFAULT_WORKFLOW" | tr -d '\n' | sed 's/\\n//g')
         printf "\n-----------------default workflow is in here: $workflow_json\n"
         if [[ -n $workflow_json ]]; then
             # workflow_filename=$(basename $workflow_json)
