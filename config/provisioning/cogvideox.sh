@@ -86,7 +86,7 @@ function provisioning_get_custom_models() {
         url=$(echo "$entry" | awk '{print $2}')
         dir=$(dirname $filepath)
         filename=$(basename $filepath)
-        full_dir="${WORKSPACE}/storage/stable_diffusion/models/${dir}"
+        full_dir="${WORKSPACE}/ComfyUI/models/${dir}"
         mkdir -p "${full_dir}"
         printf "\n-----------------Downloading: %s\n" "${url}"
         provisioning_download_with_filename "${url}" "${full_dir}/${filename}"
@@ -128,22 +128,22 @@ function provisioning_start() {
     provisioning_get_frame_interpolation
     provisioning_get_custom_models
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/ckpt" \
+        "${WORKSPACE}/ComfyUI/models/ckpt" \
         "${CHECKPOINT_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/unet" \
+        "${WORKSPACE}/ComfyUI/models/unet" \
         "${UNET_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/lora" \
+        "${WORKSPACE}/ComfyUI/models/lora" \
         "${LORA_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/controlnet" \
+        "${WORKSPACE}/ComfyUI/models/controlnet" \
         "${CONTROLNET_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/vae" \
+        "${WORKSPACE}/ComfyUI/models/vae" \
         "${VAE_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/esrgan" \
+        "${WORKSPACE}/ComfyUI/models/esrgan" \
         "${ESRGAN_MODELS[@]}"
     provisioning_get_default_workflow
     provisioning_print_end
