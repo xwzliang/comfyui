@@ -109,19 +109,17 @@ function provisioning_get_frame_interpolation() {
     repo="https://github.com/Fannovel16/ComfyUI-Frame-Interpolation"
     dir="${repo##*/}"
     path="/opt/ComfyUI/custom_nodes/${dir}"
+    install_script="${path}/install.py"
     if [[ -d $path ]]; then
         if [[ ${AUTO_UPDATE,,} != "false" ]]; then
             printf "Updating node: %s...\n" "${repo}"
             ( cd "$path" && git pull )
-            python_run install.py
-            if [[ -e $requirements ]]; then
-                pip_install -r "$requirements"
-            fi
+            python_run $install_script
         fi
     else
         printf "Downloading node: %s...\n" "${repo}"
         git clone "${repo}" "${path}" --recursive
-        python_run install.py
+        python_run $install_script
     fi
 }
 
