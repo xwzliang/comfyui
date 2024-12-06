@@ -128,7 +128,7 @@ function provisioning_start() {
     provisioning_get_frame_interpolation
     provisioning_get_custom_models
     provisioning_get_models \
-        "${WORKSPACE}/ComfyUI/models/ckpt" \
+        "${WORKSPACE}/ComfyUI/models/checkpoints" \
         "${CHECKPOINT_MODELS[@]}"
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/unet" \
