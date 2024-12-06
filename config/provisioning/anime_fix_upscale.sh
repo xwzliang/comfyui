@@ -22,9 +22,13 @@ NODES=(
     "https://github.com/ltdrdata/ComfyUI-Manager"
     "https://github.com/cubiq/ComfyUI_essentials"
     "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite"
-    "https://github.com/ltdrdata/ComfyUI-Impact-Pack"
     "https://github.com/Fannovel16/comfyui_controlnet_aux"
     "https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet"
+)
+
+CUSTOM_NODES=(
+    "https://github.com/Fannovel16/ComfyUI-Frame-Interpolation"
+    "https://github.com/ltdrdata/ComfyUI-Impact-Pack"
 )
 
 CUSTOM_MODELS=(
@@ -105,22 +109,30 @@ function provisioning_get_custom_models() {
     done
 }
 
-function provisioning_get_frame_interpolation() {
-    repo="https://github.com/Fannovel16/ComfyUI-Frame-Interpolation"
-    dir="${repo##*/}"
-    path="/opt/ComfyUI/custom_nodes/${dir}"
-    install_script="${path}/install.py"
-    if [[ -d $path ]]; then
-        if [[ ${AUTO_UPDATE,,} != "false" ]]; then
-            printf "Updating node: %s...\n" "${repo}"
-            ( cd "$path" && git pull )
+function provisioning_get_custom_nodes() {
+    for repo in "${CUSTOM_NODES[@]}"; do
+        dir="${repo##*/}"
+        path="/opt/ComfyUI/custom_nodes/${dir}"
+        install_script="${path}/install.py"
+        requirements="${path}/requirements.txt"
+        if [[ -d $path ]]; then
+            if [[ ${AUTO_UPDATE,,} != "false" ]]; then
+                printf "Updating node: %s...\n" "${repo}"
+                ( cd "$path" && git pull )
+                if [[ -e $requirements ]]; then
+                   pip_install -r "$requirements"
+                fi
+                python_run $install_script
+            fi
+        else
+            printf "Downloading node: %s...\n" "${repo}"
+            git clone "${repo}" "${path}" --recursive
+            if [[ -e $requirements ]]; then
+                pip_install -r "$requirements"
+            fi
             python_run $install_script
         fi
-    else
-        printf "Downloading node: %s...\n" "${repo}"
-        git clone "${repo}" "${path}" --recursive
-        python_run $install_script
-    fi
+    done
 }
 
 ### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
@@ -136,7 +148,7 @@ function provisioning_start() {
     provisioning_get_apt_packages
     provisioning_get_pip_packages
     provisioning_get_nodes
-    provisioning_get_frame_interpolation
+    provisioning_get_custom_nodes
     provisioning_get_custom_models
     provisioning_get_models \
         "${WORKSPACE}/storage/stable_diffusion/models/ckpt" \
