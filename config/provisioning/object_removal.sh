@@ -27,6 +27,7 @@ NODES=(
     "https://github.com/chflame163/ComfyUI_LayerStyle_Advance"
     # "https://github.com/daniabib/ComfyUI_ProPainter_Nodes"
     "https://github.com/xwzliang/ComfyUI_ProPainter_Nodes"
+    "https://github.com/kijai/ComfyUI-CogVideoXWrapper"
 )
 
 CUSTOM_NODES=(
