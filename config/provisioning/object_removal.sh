@@ -35,7 +35,7 @@ CUSTOM_NODES=(
 )
 
 CUSTOM_MODELS=(
-    # "clip/t5/google_t5-v1_1-xxl_encoderonly-fp16.safetensors https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/model.safetensors"
+    "clip/t5/google_t5-v1_1-xxl_encoderonly-fp16.safetensors https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/model.safetensors"
 )
 
 CHECKPOINT_MODELS=(
