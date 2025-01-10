@@ -22,6 +22,8 @@ NODES=(
     "https://github.com/ltdrdata/ComfyUI-Manager"
     "https://github.com/cubiq/ComfyUI_essentials"
     "https://github.com/yolain/ComfyUI-Easy-Use"
+    "https://github.com/niknah/quick-connections"
+    "https://github.com/Fannovel16/comfyui_controlnet_aux"
 )
 
 CHECKPOINT_MODELS=(
@@ -65,7 +67,7 @@ function provisioning_start() {
     # Get licensed models if HF_TOKEN set & valid
     # if provisioning_has_valid_hf_token; then
         UNET_MODELS+=("https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8.safetensors")
-        VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/ae.safetensors")
+        VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors")
     # else
     #     UNET_MODELS+=("https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-schnell-fp8-e4m3fn.safetensors")
     #     VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors")

@@ -25,6 +25,7 @@ NODES=(
     "https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet"
     "https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved"
     "https://github.com/kijai/ComfyUI-KJNodes"
+    "https://github.com/niknah/quick-connections"
 )
 
 CUSTOM_NODES=(

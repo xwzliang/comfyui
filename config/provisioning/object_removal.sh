@@ -28,6 +28,7 @@ NODES=(
     # "https://github.com/daniabib/ComfyUI_ProPainter_Nodes"
     "https://github.com/xwzliang/ComfyUI_ProPainter_Nodes"
     "https://github.com/kijai/ComfyUI-CogVideoXWrapper"
+    "https://github.com/niknah/quick-connections"
 )
 
 CUSTOM_NODES=(

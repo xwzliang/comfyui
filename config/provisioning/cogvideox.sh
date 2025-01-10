@@ -24,6 +24,7 @@ NODES=(
     "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite"
     "https://github.com/kijai/ComfyUI-KJNodes"
     "https://github.com/kijai/ComfyUI-CogVideoXWrapper"
+    "https://github.com/niknah/quick-connections"
 )
 
 CUSTOM_MODELS=(
