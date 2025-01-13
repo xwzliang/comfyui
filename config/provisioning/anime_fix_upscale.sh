@@ -26,6 +26,9 @@ NODES=(
     "https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved"
     "https://github.com/kijai/ComfyUI-KJNodes"
     "https://github.com/niknah/quick-connections"
+    "https://github.com/Ttl/ComfyUi_NNLatentUpscale"
+    "https://github.com/xwzliang/ComfyUI_ProPainter_Nodes"
+    "https://github.com/kijai/ComfyUI-CogVideoXWrapper"
 )
 
 CUSTOM_NODES=(
@@ -34,7 +37,7 @@ CUSTOM_NODES=(
 )
 
 CUSTOM_MODELS=(
-    # "clip/t5/google_t5-v1_1-xxl_encoderonly-fp16.safetensors https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/model.safetensors"
+    "clip/t5/google_t5-v1_1-xxl_encoderonly-fp16.safetensors https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/model.safetensors"
 )
 
 CHECKPOINT_MODELS=(
@@ -56,7 +59,7 @@ LORA_MODELS=(
 VAE_MODELS=(
     # "https://huggingface.co/stabilityai/sd-vae-ft-ema-original/resolve/main/vae-ft-ema-560000-ema-pruned.safetensors"
     # "https://huggingface.co/stabilityai/sd-vae-ft-mse-original/resolve/main/vae-ft-mse-840000-ema-pruned.safetensors"
-    # "https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors"
+    "https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors"
 )
 
 ESRGAN_MODELS=(
