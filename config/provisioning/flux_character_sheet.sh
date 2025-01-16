@@ -33,7 +33,7 @@ NODES=(
 
 CUSTOM_MODELS=(
     "clip/t5/google_t5-v1_1-xxl_encoderonly-fp8_e4m3fn.safetensors https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/t5xxl_fp8_e4m3fn.safetensors"
-    "controlnet/FLUX.1/InstantX-FLUX1-Dev-Union https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/main/diffusion_pytorch_model.safetensors"
+    "controlnet/FLUX.1/InstantX-FLUX1-Dev-Union/diffusion_pytorch_model.safetensors https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/main/diffusion_pytorch_model.safetensors"
 )
 
 CUSTOM_NODES=(
