@@ -29,11 +29,18 @@ NODES=(
     "https://github.com/kijai/ComfyUI-KJNodes"
     "https://github.com/chrisgoringe/cg-use-everywhere"
     "https://github.com/sipie800/ComfyUI-PuLID-Flux-Enhanced"
+    "https://github.com/rgthree/rgthree-comfy"
+    "https://github.com/ltdrdata/ComfyUI-Impact-Subpack"
+    "https://github.com/giriss/comfy-image-saver"
+)
+
+CUSTOM_INPUT_FILES=(
+    "https://huggingface.co/xwzliang/myloras/resolve/main/Pose_sheet_v02.png"
 )
 
 CUSTOM_MODELS=(
     "clip/t5/google_t5-v1_1-xxl_encoderonly-fp8_e4m3fn.safetensors https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/t5xxl_fp8_e4m3fn.safetensors"
-    "controlnet/FLUX.1/InstantX-FLUX1-Dev-Union/diffusion_pytorch_model.safetensors https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/main/diffusion_pytorch_model.safetensors"
+    "controlnet/FLUX.1/flux_shakker_labs_union_pro-fp8_e4m3fn.safetensors https://huggingface.co/Kijai/flux-fp8/resolve/main/flux_shakker_labs_union_pro-fp8_e4m3fn.safetensors"
 )
 
 CUSTOM_NODES=(
@@ -97,6 +104,9 @@ function provisioning_start() {
     provisioning_get_pip_packages
     provisioning_get_custom_nodes
     provisioning_get_custom_models
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/input" \
+        "${CUSTOM_INPUT_FILES[@]}"
     provisioning_get_models \
         "${WORKSPACE}/storage/stable_diffusion/models/ckpt" \
         "${CHECKPOINT_MODELS[@]}"
