@@ -132,6 +132,11 @@ function python_run() {
         fi
 }
 
+# Download from $1 URL to $2 file path (with filename)
+function provisioning_download_with_filename() {
+    wget -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -O "$2" "$1"
+}
+
 function provisioning_get_custom_models() {
     for entry in "${CUSTOM_MODELS[@]}"; do
         filepath=$(echo "$entry" | awk '{print $1}')
