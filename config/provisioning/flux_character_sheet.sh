@@ -32,15 +32,17 @@ NODES=(
     "https://github.com/rgthree/rgthree-comfy"
     "https://github.com/ltdrdata/ComfyUI-Impact-Subpack"
     "https://github.com/giriss/comfy-image-saver"
+    "https://github.com/cubiq/ComfyUI_FaceAnalysis"
 )
 
 CUSTOM_INPUT_FILES=(
-    "https://huggingface.co/xwzliang/myloras/resolve/main/Pose_sheet_v02.png"
+    #"https://huggingface.co/xwzliang/myloras/resolve/main/Pose_sheet_v02.png"
 )
 
 CUSTOM_MODELS=(
     "clip/t5/google_t5-v1_1-xxl_encoderonly-fp8_e4m3fn.safetensors https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/t5xxl_fp8_e4m3fn.safetensors"
-    "controlnet/FLUX.1/flux_shakker_labs_union_pro-fp8_e4m3fn.safetensors https://huggingface.co/Kijai/flux-fp8/resolve/main/flux_shakker_labs_union_pro-fp8_e4m3fn.safetensors"
+    # "controlnet/FLUX.1/flux_shakker_labs_union_pro-fp8_e4m3fn.safetensors https://huggingface.co/Kijai/flux-fp8/resolve/main/flux_shakker_labs_union_pro-fp8_e4m3fn.safetensors"
+    "pulid/pulid_flux_v0.9.1.safetensors https://huggingface.co/guozinan/PuLID/resolve/main/pulid_flux_v0.9.1.safetensors"
 )
 
 CUSTOM_NODES=(
@@ -75,8 +77,8 @@ CONTROLNET_MODELS=(
 )
 
 UPSCALE_MODELS=(
-    "https://huggingface.co/lokCX/4x-Ultrasharp/resolve/main/4x-UltraSharp.pth"
-    "https://huggingface.co/skbhadra/ClearRealityV1/resolve/main/4x-ClearRealityV1.pth"
+    #"https://huggingface.co/lokCX/4x-Ultrasharp/resolve/main/4x-UltraSharp.pth"
+    #"https://huggingface.co/skbhadra/ClearRealityV1/resolve/main/4x-ClearRealityV1.pth"
 )
 ### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
 
