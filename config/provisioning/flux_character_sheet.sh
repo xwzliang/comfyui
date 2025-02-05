@@ -34,6 +34,7 @@ NODES=(
     "https://github.com/giriss/comfy-image-saver"
     "https://github.com/xwzliang/ComfyUI_FaceAnalysis"
     "https://github.com/kijai/ComfyUI-CogVideoXWrapper"
+    "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite"
 )
 
 CUSTOM_INPUT_FILES=(
@@ -47,6 +48,7 @@ CUSTOM_MODELS=(
 )
 
 CUSTOM_NODES=(
+    "https://github.com/Fannovel16/ComfyUI-Frame-Interpolation"
     "https://github.com/ltdrdata/ComfyUI-Impact-Pack"
 )
 
