@@ -33,6 +33,7 @@ NODES=(
     "https://github.com/ltdrdata/ComfyUI-Impact-Subpack"
     "https://github.com/giriss/comfy-image-saver"
     "https://github.com/cubiq/ComfyUI_FaceAnalysis"
+    "https://github.com/kijai/ComfyUI-CogVideoXWrapper"
 )
 
 CUSTOM_INPUT_FILES=(
