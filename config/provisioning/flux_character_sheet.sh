@@ -32,7 +32,7 @@ NODES=(
     "https://github.com/rgthree/rgthree-comfy"
     "https://github.com/ltdrdata/ComfyUI-Impact-Subpack"
     "https://github.com/giriss/comfy-image-saver"
-    "https://github.com/cubiq/ComfyUI_FaceAnalysis"
+    "https://github.com/xwzliang/ComfyUI_FaceAnalysis"
     "https://github.com/kijai/ComfyUI-CogVideoXWrapper"
 )
 
