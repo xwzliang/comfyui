@@ -2,7 +2,7 @@
 
 # This file will be sourced in init.sh
 
-# https://raw.githubusercontent.com/ai-dock/comfyui/main/config/provisioning/hunyuan_video.sh
+# https://raw.githubusercontent.com/xwzliang/comfyui/refs/heads/main/config/provisioning/hunyuan_video.sh
 
 # Packages are installed after nodes so we can fix them...
 
