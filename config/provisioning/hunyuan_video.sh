@@ -65,6 +65,9 @@ VAE_MODELS=(
 
 LORA_MODELS=(
     # "https://huggingface.co/xwzliang/myloras/resolve/main/Jixar_flux_v2.safetensors"
+)
+
+LORAS_MODELS=(
     "https://huggingface.co/leapfusion-image2vid-test/image2vid-960x544/resolve/main/img2vid544p.safetensors"
 )
 
@@ -126,6 +129,9 @@ function provisioning_start() {
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/lora" \
         "${LORA_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/loras" \
+        "${LORAS_MODELS[@]}"
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/controlnet" \
         "${CONTROLNET_MODELS[@]}"
