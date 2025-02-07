@@ -14,8 +14,7 @@ APT_PACKAGES=(
 )
 
 PIP_PACKAGES=(
-    #"package-1"
-    #"package-2"
+    "ultralytics"
 )
 
 NODES=(
@@ -33,15 +32,22 @@ NODES=(
     "https://github.com/ltdrdata/ComfyUI-Impact-Subpack"
     "https://github.com/giriss/comfy-image-saver"
     "https://github.com/xwzliang/ComfyUI_FaceAnalysis"
-    "https://github.com/kijai/ComfyUI-CogVideoXWrapper"
+    # "https://github.com/kijai/ComfyUI-CogVideoXWrapper"
     "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite"
+    "https://github.com/aigc-apps/EasyAnimate"
 )
 
 CUSTOM_INPUT_FILES=(
     #"https://huggingface.co/xwzliang/myloras/resolve/main/Pose_sheet_v02.png"
 )
 
+CUSTOM_MODEL_REPOS=(
+    "EasyAnimate https://huggingface.co/alibaba-pai/EasyAnimateV5.1-12b-zh-InP"
+)
+
 CUSTOM_MODELS=(
+    "ultralytics/bbox/face_yolov8m.pt https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt"
+    "ultralytics/bbox/hand_yolov9c.pt https://huggingface.co/Bingsu/adetailer/resolve/main/hand_yolov9c.pt"
     "clip/t5/google_t5-v1_1-xxl_encoderonly-fp8_e4m3fn.safetensors https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/t5xxl_fp8_e4m3fn.safetensors"
     # "controlnet/FLUX.1/flux_shakker_labs_union_pro-fp8_e4m3fn.safetensors https://huggingface.co/Kijai/flux-fp8/resolve/main/flux_shakker_labs_union_pro-fp8_e4m3fn.safetensors"
     "pulid/pulid_flux_v0.9.1.safetensors https://huggingface.co/guozinan/PuLID/resolve/main/pulid_flux_v0.9.1.safetensors"
@@ -53,6 +59,7 @@ CUSTOM_NODES=(
 )
 
 CHECKPOINT_MODELS=(
+    "https://huggingface.co/LootingGod/WildCardX-SDXL-Turbo/resolve/main/wildcardxXLTURBO_wildcardxXLTURBOV10.safetensors"
 )
 
 CLIP_MODELS=(
@@ -64,6 +71,7 @@ UNET_MODELS=(
 )
 
 VAE_MODELS=(
+    "https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors"
 )
 
 LORA_MODELS=(
@@ -80,10 +88,27 @@ CONTROLNET_MODELS=(
 )
 
 UPSCALE_MODELS=(
-    #"https://huggingface.co/lokCX/4x-Ultrasharp/resolve/main/4x-UltraSharp.pth"
+    "https://huggingface.co/lokCX/4x-Ultrasharp/resolve/main/4x-UltraSharp.pth"
     #"https://huggingface.co/skbhadra/ClearRealityV1/resolve/main/4x-ClearRealityV1.pth"
 )
-### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
+
+ANIMATEDIFF_MODELS=(
+    "https://huggingface.co/hotshotco/Hotshot-XL/resolve/main/hsxl_temporal_layers.f16.safetensors"
+)
+
+function provisioning_get_custom_model_repos() {
+    for entry in "${CUSTOM_MODEL_REPOS[@]}"; do
+        model_folder=$(echo "$entry" | awk '{print $1}')
+        repo=$(echo "$entry" | awk '{print $2}')
+        dirname="${repo##*/}"
+        path="/opt/ComfyUI/models/${model_folder}"
+        mkdir -p $path
+        git lfs install
+        git clone $repo
+        # Remove .git to save space
+        rm -rf "${path}/${dirname}/.git"
+    done
+}
 
 function fix_insightface() {
     mv /workspace/ComfyUI/models/insightface/models/antelopev2/antelopev2/* /workspace/ComfyUI/models/insightface/models/antelopev2/
@@ -112,34 +137,38 @@ function provisioning_start() {
     provisioning_get_nodes
     provisioning_get_pip_packages
     provisioning_get_custom_nodes
+    provisioning_get_custom_model_repos
     provisioning_get_custom_models
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/input" \
         "${CUSTOM_INPUT_FILES[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/ckpt" \
+        "${WORKSPACE}/ComfyUI/models/checkpoints" \
         "${CHECKPOINT_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/unet" \
+        "${WORKSPACE}/ComfyUI/models/unet" \
         "${UNET_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/lora" \
+        "${WORKSPACE}/ComfyUI/models/loras" \
         "${LORA_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/controlnet" \
+        "${WORKSPACE}/ComfyUI/models/controlnet" \
         "${CONTROLNET_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/vae" \
+        "${WORKSPACE}/ComfyUI/models/vae" \
         "${VAE_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/clip" \
+        "${WORKSPACE}/ComfyUI/models/clip" \
         "${CLIP_MODELS[@]}"
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/upscale_models" \
         "${UPSCALE_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/esrgan" \
+        "${WORKSPACE}/ComfyUI/models/esrgan" \
         "${ESRGAN_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/animatediff_models" \
+        "${ANIMATEDIFF_MODELS[@]}"
     fix_insightface
     provisioning_print_end
 }

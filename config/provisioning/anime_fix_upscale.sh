@@ -29,6 +29,12 @@ NODES=(
     "https://github.com/Ttl/ComfyUi_NNLatentUpscale"
     "https://github.com/xwzliang/ComfyUI_ProPainter_Nodes"
     "https://github.com/kijai/ComfyUI-CogVideoXWrapper"
+    "https://github.com/ltdrdata/ComfyUI-Impact-Subpack"
+    "https://github.com/aigc-apps/EasyAnimate"
+)
+
+CUSTOM_MODEL_REPOS=(
+    "EasyAnimate https://huggingface.co/alibaba-pai/EasyAnimateV5.1-12b-zh-InP"
 )
 
 CUSTOM_NODES=(
@@ -37,7 +43,9 @@ CUSTOM_NODES=(
 )
 
 CUSTOM_MODELS=(
-    "clip/t5/google_t5-v1_1-xxl_encoderonly-fp16.safetensors https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/model.safetensors"
+    "ultralytics/bbox/face_yolov8m.pt https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt"
+    "ultralytics/bbox/hand_yolov9c.pt https://huggingface.co/Bingsu/adetailer/resolve/main/hand_yolov9c.pt"
+    # "clip/t5/google_t5-v1_1-xxl_encoderonly-fp16.safetensors https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/model.safetensors"
 )
 
 CHECKPOINT_MODELS=(
@@ -69,7 +77,7 @@ ESRGAN_MODELS=(
 )
 
 CONTROLNET_MODELS=(
-    "https://huggingface.co/TheMistoAI/MistoLine/resolve/main/mistoLine_fp16.safetensors"
+    # "https://huggingface.co/TheMistoAI/MistoLine/resolve/main/mistoLine_fp16.safetensors"
     # "https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/diffusers_xl_canny_mid.safetensors"
     # "https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/diffusers_xl_depth_mid.safetensors?download"
     # "https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/t2i-adapter_diffusers_xl_openpose.safetensors"
@@ -99,6 +107,20 @@ UPSCALE_MODELS=(
 ANIMATEDIFF_MODELS=(
     "https://huggingface.co/hotshotco/Hotshot-XL/resolve/main/hsxl_temporal_layers.f16.safetensors"
 )
+
+function provisioning_get_custom_model_repos() {
+    for entry in "${CUSTOM_MODEL_REPOS[@]}"; do
+        model_folder=$(echo "$entry" | awk '{print $1}')
+        repo=$(echo "$entry" | awk '{print $2}')
+        dirname="${repo##*/}"
+        path="/opt/ComfyUI/models/${model_folder}"
+        mkdir -p $path
+        git lfs install
+        git clone $repo
+        # Remove .git to save space
+        rm -rf "${path}/${dirname}/.git"
+    done
+}
 
 function provisioning_get_custom_models() {
     for entry in "${CUSTOM_MODELS[@]}"; do
@@ -154,6 +176,7 @@ function provisioning_start() {
     provisioning_get_pip_packages
     provisioning_get_nodes
     provisioning_get_custom_nodes
+    provisioning_get_custom_model_repos
     provisioning_get_custom_models
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/checkpoints" \
@@ -162,7 +185,7 @@ function provisioning_start() {
         "${WORKSPACE}/ComfyUI/models/unet" \
         "${UNET_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/ComfyUI/models/lora" \
+        "${WORKSPACE}/ComfyUI/models/loras" \
         "${LORA_MODELS[@]}"
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/controlnet" \
