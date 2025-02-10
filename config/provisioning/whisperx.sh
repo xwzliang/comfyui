@@ -13,7 +13,7 @@ APT_PACKAGES=(
 )
 
 PIP_PACKAGES=(
-    #"ultralytics"
+    "ctranslate2==4.4.0"
 )
 
 NODES=(
