@@ -9,12 +9,12 @@
 # DEFAULT_WORKFLOW="https://raw.githubusercontent.com/ai-dock/comfyui/main/config/workflows/flux-comfyui-example.json"
 
 APT_PACKAGES=(
-    #"package-1"
-    #"package-2"
+    "libcudnn8"
 )
 
 PIP_PACKAGES=(
     "ultralytics"
+    "ctranslate2==4.4.0"
 )
 
 NODES=(
@@ -35,6 +35,8 @@ NODES=(
     # "https://github.com/kijai/ComfyUI-CogVideoXWrapper"
     "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite"
     "https://github.com/aigc-apps/EasyAnimate"
+    "https://github.com/AIFSH/ComfyUI-UVR5"
+    "https://github.com/xwzliang/ComfyUI-WhisperX"
 )
 
 CUSTOM_INPUT_FILES=(
