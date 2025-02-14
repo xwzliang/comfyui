@@ -22,6 +22,7 @@ NODES=(
     "https://github.com/niknah/quick-connections"
     "https://github.com/AIFSH/ComfyUI-UVR5"
     "https://github.com/xwzliang/ComfyUI-WhisperX"
+    "https://github.com/xwzliang/comfyui-kokoro"
 )
 
 CUSTOM_INPUT_FILES=(
