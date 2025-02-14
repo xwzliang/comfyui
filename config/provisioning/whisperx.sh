@@ -10,6 +10,7 @@
 
 APT_PACKAGES=(
     "libcudnn8"
+    "espeak-ng"
 )
 
 PIP_PACKAGES=(
