@@ -35,6 +35,7 @@ NODES=(
     # "https://github.com/kijai/ComfyUI-CogVideoXWrapper"
     "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite"
     "https://github.com/aigc-apps/EasyAnimate"
+    "https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved"
     "https://github.com/AIFSH/ComfyUI-UVR5"
     "https://github.com/xwzliang/ComfyUI-WhisperX"
 )
