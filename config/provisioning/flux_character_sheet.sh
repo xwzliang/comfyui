@@ -108,7 +108,7 @@ function provisioning_get_custom_model_repos() {
         path="/opt/ComfyUI/models/${model_folder}"
         mkdir -p $path
         git lfs install
-        git clone $repo
+        git clone $repo "${path}/${dirname}"
         # Remove .git to save space
         rm -rf "${path}/${dirname}/.git"
     done
