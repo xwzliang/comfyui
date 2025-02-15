@@ -24,6 +24,7 @@ NODES=(
     "https://github.com/AIFSH/ComfyUI-UVR5"
     "https://github.com/xwzliang/ComfyUI-WhisperX"
     "https://github.com/xwzliang/comfyui-kokoro"
+    "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite"
 )
 
 CUSTOM_INPUT_FILES=(
@@ -37,6 +38,7 @@ CUSTOM_MODELS=(
 )
 
 CUSTOM_NODES=(
+    "https://github.com/Fannovel16/ComfyUI-Frame-Interpolation"
 )
 
 CHECKPOINT_MODELS=(
