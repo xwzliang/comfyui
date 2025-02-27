@@ -80,15 +80,24 @@ CLIP_MODELS=(
     # "https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/t5xxl_fp8_e4m3fn.safetensors"
 )
 
+TEXT_ENCODERS_MODELS=(
+    "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/open-clip-xlm-roberta-large-vit-huge-14_fp16.safetensors"
+)
+
+DIFFUSION_MODELS=(
+    "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Wan2_1-I2V-14B-720P_fp8_e4m3fn.safetensors"
+    "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Wan2_1-T2V-1_3B_bf16.safetensors"
+)
+
 UNET_MODELS=(
 )
 
 VAE_MODELS=(
     # "https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors"
+    "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Wan2_1_VAE_bf16.safetensors"
 )
 
 LORA_MODELS=(
-    # "https://huggingface.co/strangerzonehf/Flux-Super-Blend-LoRA/resolve/main/Super-Blend.safetensors"
     "https://huggingface.co/prithivMLmods/Canopus-Cute-Kawaii-Flux-LoRA/resolve/main/Canopus-Cute-Kawaii-Flux-LoRA.safetensors"
     "https://huggingface.co/prithivMLmods/Flux.1-Dev-Ctoon-LoRA/resolve/main/ctoon.safetensors"
     "https://huggingface.co/prithivMLmods/Knitted-Character-Flux-LoRA/resolve/main/Knitted-Character.safetensors"
@@ -153,15 +162,15 @@ function provisioning_start() {
     source /opt/ai-dock/etc/environment.sh
     source /opt/ai-dock/bin/venv-set.sh comfyui
 
-    # Get licensed models if HF_TOKEN set & valid
-    if provisioning_has_valid_hf_token; then
-        UNET_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors")
-        VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/ae.safetensors")
-    else
-        UNET_MODELS+=("https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8.safetensors")
-        VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors")
-        # sed -i 's/flux1-dev\.safetensors/flux1-schnell.safetensors/g' /opt/ComfyUI/web/scripts/defaultGraph.js
-    fi
+    # # Get licensed models if HF_TOKEN set & valid
+    # if provisioning_has_valid_hf_token; then
+    #     UNET_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors")
+    #     VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/ae.safetensors")
+    # else
+    #     UNET_MODELS+=("https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8.safetensors")
+    #     VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors")
+    #     # sed -i 's/flux1-dev\.safetensors/flux1-schnell.safetensors/g' /opt/ComfyUI/web/scripts/defaultGraph.js
+    # fi
 
     provisioning_print_header
     provisioning_get_apt_packages
@@ -193,6 +202,12 @@ function provisioning_start() {
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/clip" \
         "${CLIP_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/text_encoders" \
+        "${TEXT_ENCODERS_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/diffusion_models" \
+        "${DIFFUSION_MODELS[@]}"
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/upscale_models" \
         "${UPSCALE_MODELS[@]}"
