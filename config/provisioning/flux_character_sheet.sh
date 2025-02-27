@@ -10,6 +10,7 @@
 
 APT_PACKAGES=(
     "libcudnn8"
+    "espeak-ng"
 )
 
 PIP_PACKAGES=(
@@ -38,6 +39,8 @@ NODES=(
     "https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved"
     "https://github.com/AIFSH/ComfyUI-UVR5"
     "https://github.com/xwzliang/ComfyUI-WhisperX"
+    "https://github.com/xwzliang/comfyui-kokoro"
+    "https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet"
 )
 
 CUSTOM_INPUT_FILES=(
@@ -49,6 +52,7 @@ CUSTOM_MODEL_REPOS=(
 )
 
 CUSTOM_MODELS=(
+    "loras/anime_blockprint_style.safetensors https://huggingface.co/glif/anime-blockprint-style/resolve/main/bwmanga.safetensors"
     "insightface/models/antelopev2.zip https://huggingface.co/xwzliang/myloras/resolve/main/antelopev2.zip"
     "insightface/models/buffalo_l.zip https://huggingface.co/xwzliang/myloras/resolve/main/buffalo_l.zip"
     "ultralytics/bbox/face_yolov8m.pt https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt"
@@ -80,6 +84,9 @@ VAE_MODELS=(
 )
 
 LORA_MODELS=(
+    "https://huggingface.co/prithivMLmods/Canopus-Cute-Kawaii-Flux-LoRA/resolve/main/Canopus-Cute-Kawaii-Flux-LoRA.safetensors"
+    "https://huggingface.co/prithivMLmods/Flux.1-Dev-Ctoon-LoRA/resolve/main/ctoon.safetensors"
+    "https://huggingface.co/prithivMLmods/Knitted-Character-Flux-LoRA/resolve/main/Knitted-Character.safetensors"
     "https://huggingface.co/xwzliang/myloras/resolve/main/Jixar_flux_v2.safetensors"
 )
 
@@ -90,6 +97,7 @@ ESRGAN_MODELS=(
 )
 
 CONTROLNET_MODELS=(
+    "https://huggingface.co/TheMistoAI/MistoLine/resolve/main/mistoLine_fp16.safetensors"
 )
 
 UPSCALE_MODELS=(
