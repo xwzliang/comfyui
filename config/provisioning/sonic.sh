@@ -16,6 +16,7 @@ APT_PACKAGES=(
 PIP_PACKAGES=(
     "ultralytics"
     "ctranslate2==4.4.0"
+    "huggingface_hub[cli]"
 )
 
 NODES=(
@@ -41,6 +42,7 @@ NODES=(
     "https://github.com/xwzliang/ComfyUI-WhisperX"
     "https://github.com/xwzliang/comfyui-kokoro"
     "https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet"
+    "https://github.com/smthemex/ComfyUI_Sonic"
 )
 
 CUSTOM_INPUT_FILES=(
@@ -49,13 +51,22 @@ CUSTOM_INPUT_FILES=(
 
 CUSTOM_MODEL_REPOS=(
     # "EasyAnimate https://huggingface.co/alibaba-pai/EasyAnimateV5.1-12b-zh-InP"
+    "sonic/whisper-tiny https://huggingface.co/openai/whisper-tiny"
 )
 
 CUSTOM_REPOS=(
     "../me https://github.com/xwzliang/comfyui"
 )
 
+HUGGINGFACE_CLI_REPOS=(
+)
+
 CUSTOM_MODELS=(
+    "sonic/audio2bucket.pth https://huggingface.co/LeonJoe13/Sonic/resolve/main/Sonic/audio2bucket.pth"
+    "sonic/audio2token.pth https://huggingface.co/LeonJoe13/Sonic/resolve/main/Sonic/audio2token.pth"
+    "sonic/unet.pth https://huggingface.co/LeonJoe13/Sonic/resolve/main/Sonic/unet.pth"
+    "sonic/yoloface_v5m.pt https://huggingface.co/LeonJoe13/Sonic/resolve/main/yoloface_v5m.pt"
+    "sonic/RIFE/flownet.pkl https://huggingface.co/LeonJoe13/Sonic/resolve/main/RIFE/flownet.pkl"
     "loras/anime_blockprint_style.safetensors https://huggingface.co/glif/anime-blockprint-style/resolve/main/bwmanga.safetensors"
     "insightface/models/antelopev2.zip https://huggingface.co/xwzliang/myloras/resolve/main/antelopev2.zip"
     "insightface/models/buffalo_l.zip https://huggingface.co/xwzliang/myloras/resolve/main/buffalo_l.zip"
@@ -72,6 +83,7 @@ CUSTOM_NODES=(
 )
 
 CHECKPOINT_MODELS=(
+    ""https://huggingface.co/stabilityai/stable-video-diffusion-img2vid-xt/resolve/main/svd_xt.safetensors""
     # "https://huggingface.co/LootingGod/WildCardX-SDXL-Turbo/resolve/main/wildcardxXLTURBO_wildcardxXLTURBOV10.safetensors"
 )
 
@@ -80,15 +92,24 @@ CLIP_MODELS=(
     # "https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/t5xxl_fp8_e4m3fn.safetensors"
 )
 
+TEXT_ENCODERS_MODELS=(
+    # "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/open-clip-xlm-roberta-large-vit-huge-14_fp16.safetensors"
+)
+
+DIFFUSION_MODELS=(
+    # "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Wan2_1-I2V-14B-720P_fp8_e4m3fn.safetensors"
+    # "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Wan2_1-T2V-1_3B_bf16.safetensors"
+)
+
 UNET_MODELS=(
 )
 
 VAE_MODELS=(
     # "https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors"
+    # "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Wan2_1_VAE_bf16.safetensors"
 )
 
 LORA_MODELS=(
-    # "https://huggingface.co/strangerzonehf/Flux-Super-Blend-LoRA/resolve/main/Super-Blend.safetensors"
     "https://huggingface.co/prithivMLmods/Canopus-Cute-Kawaii-Flux-LoRA/resolve/main/Canopus-Cute-Kawaii-Flux-LoRA.safetensors"
     "https://huggingface.co/prithivMLmods/Flux.1-Dev-Ctoon-LoRA/resolve/main/ctoon.safetensors"
     "https://huggingface.co/prithivMLmods/Knitted-Character-Flux-LoRA/resolve/main/Knitted-Character.safetensors"
@@ -143,7 +164,7 @@ function provisioning_get_custom_repos() {
 function fix_insightface() {
     unzip -o /workspace/ComfyUI/models/insightface/models/buffalo_l.zip -d /workspace/ComfyUI/models/insightface/models/buffalo_l
     unzip -o /workspace/ComfyUI/models/insightface/models/antelopev2.zip -d /workspace/ComfyUI/models/insightface/models/antelopev2
-    mv /workspace/ComfyUI/models/insightface/models/antelopev2/antelopev2/* /workspace/ComfyUI/models/insightface/models/antelopev2/
+    mv -f /workspace/ComfyUI/models/insightface/models/antelopev2/antelopev2/* /workspace/ComfyUI/models/insightface/models/antelopev2/
 }
 
 function provisioning_start() {
@@ -153,15 +174,15 @@ function provisioning_start() {
     source /opt/ai-dock/etc/environment.sh
     source /opt/ai-dock/bin/venv-set.sh comfyui
 
-    # Get licensed models if HF_TOKEN set & valid
-    if provisioning_has_valid_hf_token; then
-        UNET_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors")
-        VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/ae.safetensors")
-    else
-        UNET_MODELS+=("https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8.safetensors")
-        VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors")
-        # sed -i 's/flux1-dev\.safetensors/flux1-schnell.safetensors/g' /opt/ComfyUI/web/scripts/defaultGraph.js
-    fi
+    # # Get licensed models if HF_TOKEN set & valid
+    # if provisioning_has_valid_hf_token; then
+    #     UNET_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors")
+    #     VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/ae.safetensors")
+    # else
+    #     UNET_MODELS+=("https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8.safetensors")
+    #     VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors")
+    #     # sed -i 's/flux1-dev\.safetensors/flux1-schnell.safetensors/g' /opt/ComfyUI/web/scripts/defaultGraph.js
+    # fi
 
     provisioning_print_header
     provisioning_get_apt_packages
@@ -193,6 +214,12 @@ function provisioning_start() {
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/clip" \
         "${CLIP_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/text_encoders" \
+        "${TEXT_ENCODERS_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/diffusion_models" \
+        "${DIFFUSION_MODELS[@]}"
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/upscale_models" \
         "${UPSCALE_MODELS[@]}"

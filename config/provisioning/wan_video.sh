@@ -150,8 +150,8 @@ function provisioning_get_custom_repos() {
 }
 
 function fix_insightface() {
-    unzip /workspace/ComfyUI/models/insightface/models/buffalo_l.zip -d /workspace/ComfyUI/models/insightface/models/buffalo_l
-    unzip /workspace/ComfyUI/models/insightface/models/antelopev2.zip -d /workspace/ComfyUI/models/insightface/models/antelopev2
+    unzip -o /workspace/ComfyUI/models/insightface/models/buffalo_l.zip -d /workspace/ComfyUI/models/insightface/models/buffalo_l
+    unzip -o /workspace/ComfyUI/models/insightface/models/antelopev2.zip -d /workspace/ComfyUI/models/insightface/models/antelopev2
     mv /workspace/ComfyUI/models/insightface/models/antelopev2/antelopev2/* /workspace/ComfyUI/models/insightface/models/antelopev2/
 }
 
