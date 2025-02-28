@@ -41,6 +41,7 @@ NODES=(
     "https://github.com/xwzliang/ComfyUI-WhisperX"
     "https://github.com/xwzliang/comfyui-kokoro"
     "https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet"
+    "https://github.com/kijai/ComfyUI-WanVideoWrapper"
 )
 
 CUSTOM_INPUT_FILES=(
@@ -77,11 +78,12 @@ CHECKPOINT_MODELS=(
 
 CLIP_MODELS=(
     "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors"
+    "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/open-clip-xlm-roberta-large-vit-huge-14_fp16.safetensors"
     # "https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/t5xxl_fp8_e4m3fn.safetensors"
 )
 
 TEXT_ENCODERS_MODELS=(
-    "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/open-clip-xlm-roberta-large-vit-huge-14_fp16.safetensors"
+    "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/umt5-xxl-enc-fp8_e4m3fn.safetensors"
 )
 
 DIFFUSION_MODELS=(
