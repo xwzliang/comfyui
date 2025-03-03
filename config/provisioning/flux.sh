@@ -49,6 +49,7 @@ CUSTOM_INPUT_FILES=(
 
 CUSTOM_MODEL_REPOS=(
     # "EasyAnimate https://huggingface.co/alibaba-pai/EasyAnimateV5.1-12b-zh-InP"
+    "./liveportrait https://huggingface.co/Kijai/LivePortrait_safetensors"
 )
 
 CUSTOM_REPOS=(
@@ -93,6 +94,7 @@ LORA_MODELS=(
     "https://huggingface.co/prithivMLmods/Flux.1-Dev-Ctoon-LoRA/resolve/main/ctoon.safetensors"
     "https://huggingface.co/prithivMLmods/Knitted-Character-Flux-LoRA/resolve/main/Knitted-Character.safetensors"
     "https://huggingface.co/xwzliang/myloras/resolve/main/Jixar_flux_v2.safetensors"
+    "https://huggingface.co/strangerzonehf/Flux-Super-Realism-LoRA/resolve/main/super-realism.safetensors"
 )
 
 ESRGAN_MODELS=(
