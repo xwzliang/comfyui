@@ -51,7 +51,7 @@ CUSTOM_INPUT_FILES=(
 
 CUSTOM_MODEL_REPOS=(
     # "EasyAnimate https://huggingface.co/alibaba-pai/EasyAnimateV5.1-12b-zh-InP"
-    "sonic/whisper-tiny https://huggingface.co/openai/whisper-tiny"
+    "sonic https://huggingface.co/openai/whisper-tiny"
 )
 
 CUSTOM_REPOS=(

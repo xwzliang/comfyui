@@ -41,6 +41,7 @@ NODES=(
     "https://github.com/xwzliang/ComfyUI-WhisperX"
     "https://github.com/xwzliang/comfyui-kokoro"
     "https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet"
+    "https://github.com/kijai/ComfyUI-LivePortraitKJ"
 )
 
 CUSTOM_INPUT_FILES=(
@@ -125,8 +126,8 @@ function provisioning_get_custom_model_repos() {
 }
 
 function fix_insightface() {
-    unzip /workspace/ComfyUI/models/insightface/models/buffalo_l.zip -d /workspace/ComfyUI/models/insightface/models/buffalo_l
-    unzip /workspace/ComfyUI/models/insightface/models/antelopev2.zip -d /workspace/ComfyUI/models/insightface/models/antelopev2
+    unzip -o /workspace/ComfyUI/models/insightface/models/buffalo_l.zip -d /workspace/ComfyUI/models/insightface/models/buffalo_l
+    unzip -o /workspace/ComfyUI/models/insightface/models/antelopev2.zip -d /workspace/ComfyUI/models/insightface/models/antelopev2
     mv /workspace/ComfyUI/models/insightface/models/antelopev2/antelopev2/* /workspace/ComfyUI/models/insightface/models/antelopev2/
 }
 
