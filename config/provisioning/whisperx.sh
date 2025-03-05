@@ -99,7 +99,7 @@ function provisioning_get_huggingface_repos_to_cache() {
     cache_dir=/workspace/home/user/.cache/huggingface/hub
     mkdir -p $cache_dir
     for repo in "${HUGGINGFACE_CLI_REPOS[@]}"; do
-        HF_HUB_ENABLE_HF_TRANSFER=1 huggingface-cli download $repo --cache-dir $cache_dir
+        HF_HUB_ENABLE_HF_TRANSFER=1 /opt/environments/python/comfyui/bin/huggingface-cli download $repo --cache-dir $cache_dir
     done
 }
 
