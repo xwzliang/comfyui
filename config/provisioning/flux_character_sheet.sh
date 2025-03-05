@@ -53,7 +53,7 @@ CUSTOM_INPUT_FILES=(
 )
 
 CUSTOM_MODEL_REPOS=(
-    "EasyAnimate https://huggingface.co/alibaba-pai/EasyAnimateV5.1-12b-zh-InP"
+    # "EasyAnimate https://huggingface.co/alibaba-pai/EasyAnimateV5.1-12b-zh-InP"
     "./liveportrait https://huggingface.co/Kijai/LivePortrait_safetensors"
     "../me https://github.com/xwzliang/comfyui"
 )
