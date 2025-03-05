@@ -12,6 +12,7 @@ APT_PACKAGES=(
 )
 
 PIP_PACKAGES=(
+    "wheel"
     "flash-attn --no-build-isolation"
 )
 
@@ -19,7 +20,7 @@ NODES=(
     "https://github.com/ltdrdata/ComfyUI-Manager"
     "https://github.com/cubiq/ComfyUI_essentials"
     "https://github.com/niknah/quick-connections"
-    "https://github.com/smthemex/ComfyUI_YuE"
+    "https://github.com/xwzliang/ComfyUI_YuE"
 )
 
 CUSTOM_INPUT_FILES=(
@@ -29,6 +30,9 @@ CUSTOM_INPUT_FILES=(
 CUSTOM_MODEL_REPOS=(
     "yue/YuE-s1-7B-anneal-en-cot https://huggingface.co/m-a-p/YuE-s1-7B-anneal-en-cot"
     "yue/YuE-s2-1B-general https://huggingface.co/m-a-p/YuE-s2-1B-general"
+)
+
+HUGGINGFACE_CLI_REPOS=(
 )
 
 CUSTOM_MODELS=(
@@ -83,6 +87,23 @@ function provisioning_get_custom_model_repos() {
         git clone $repo
         # Remove .git to save space
         rm -rf "${path}/${dirname}/.git"
+    done
+}
+
+function provisioning_get_huggingface_repos_to_cache() {
+    cache_dir=/workspace/home/user/.cache/huggingface/hub
+    mkdir -p $cache_dir
+    for entry in "${HUGGINGFACE_CLI_REPOS[@]}"; do
+        if [[ $string = *" "* ]]; then
+            echo "string contains one or more spaces"
+            model_folder=$(echo "$entry" | awk '{print $1}')
+            repo=$(echo "$entry" | awk '{print $2}')
+            dirname="${repo##*/}"
+            path="/opt/ComfyUI/models/${model_folder}"
+        else
+            echo "string doesn't contain spaces"
+            HF_HUB_ENABLE_HF_TRANSFER=1 huggingface-cli download $repo --cache-dir $cache_dir
+        fi
     done
 }
 

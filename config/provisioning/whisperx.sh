@@ -15,6 +15,10 @@ APT_PACKAGES=(
 
 PIP_PACKAGES=(
     "ctranslate2==4.4.0"
+    "huggingface_hub[cli]"
+    "hf_transfer"
+    "wheel"
+    "flash-attn --no-build-isolation"
 )
 
 NODES=(
@@ -32,6 +36,12 @@ CUSTOM_INPUT_FILES=(
 )
 
 CUSTOM_MODEL_REPOS=(
+)
+
+HUGGINGFACE_CLI_REPOS=(
+    "Systran/faster-whisper-large-v3"
+    "jonatasgrosman/wav2vec2-large-xlsr-53-chinese-zh-cn"
+    "hexgrad/Kokoro-82M"
 )
 
 CUSTOM_MODELS=(
@@ -85,6 +95,14 @@ function provisioning_get_custom_model_repos() {
     done
 }
 
+function provisioning_get_huggingface_repos_to_cache() {
+    cache_dir=/workspace/home/user/.cache/huggingface/hub
+    mkdir -p $cache_dir
+    for repo in "${HUGGINGFACE_CLI_REPOS[@]}"; do
+        HF_HUB_ENABLE_HF_TRANSFER=1 huggingface-cli download $repo --cache-dir $cache_dir
+    done
+}
+
 function fix_insightface() {
     mv /workspace/ComfyUI/models/insightface/models/antelopev2/antelopev2/* /workspace/ComfyUI/models/insightface/models/antelopev2/
 }
@@ -113,6 +131,7 @@ function provisioning_start() {
     provisioning_get_pip_packages
     provisioning_get_custom_nodes
     provisioning_get_custom_model_repos
+    provisioning_get_huggingface_repos_to_cache
     provisioning_get_custom_models
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/input" \

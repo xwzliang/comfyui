@@ -16,6 +16,10 @@ APT_PACKAGES=(
 PIP_PACKAGES=(
     "ultralytics"
     "ctranslate2==4.4.0"
+    "huggingface_hub[cli]"
+    "hf_transfer"
+    "wheel"
+    "flash-attn --no-build-isolation"
 )
 
 NODES=(
@@ -105,7 +109,7 @@ CONTROLNET_MODELS=(
 
 UPSCALE_MODELS=(
     "https://huggingface.co/lokCX/4x-Ultrasharp/resolve/main/4x-UltraSharp.pth"
-    #"https://huggingface.co/skbhadra/ClearRealityV1/resolve/main/4x-ClearRealityV1.pth"
+    "https://huggingface.co/skbhadra/ClearRealityV1/resolve/main/4x-ClearRealityV1.pth"
 )
 
 ANIMATEDIFF_MODELS=(
