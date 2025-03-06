@@ -14,6 +14,10 @@ APT_PACKAGES=(
 )
 
 PIP_PACKAGES=(
+    "huggingface_hub[cli]"
+    "hf_transfer"
+    "wheel"
+    "flash-attn --no-build-isolation"
     "ultralytics"
     "ctranslate2==4.4.0"
 )

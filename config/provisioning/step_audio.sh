@@ -45,7 +45,8 @@ NODES=(
     "https://github.com/xwzliang/ComfyUI-WhisperX"
     "https://github.com/xwzliang/comfyui-kokoro"
     "https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet"
-    "https://github.com/kijai/ComfyUI-LivePortraitKJ"
+    "https://github.com/kijai/ComfyUI-WanVideoWrapper"
+    "https://github.com/billwuhao/ComfyUI_StepAudioTTS"
 )
 
 CUSTOM_INPUT_FILES=(
@@ -53,20 +54,15 @@ CUSTOM_INPUT_FILES=(
 )
 
 CUSTOM_MODEL_REPOS=(
-    # "EasyAnimate https://huggingface.co/alibaba-pai/EasyAnimateV5.1-12b-zh-InP"
-    "./liveportrait https://huggingface.co/Kijai/LivePortrait_safetensors"
+    "TTS https://huggingface.co/stepfun-ai/Step-Audio-TTS-3B"
+    "TTS https://huggingface.co/stepfun-ai/Step-Audio-Tokenizer"
+)
+
+CUSTOM_REPOS=(
     "../me https://github.com/xwzliang/comfyui"
 )
 
 CUSTOM_MODELS=(
-    "loras/anime_blockprint_style.safetensors https://huggingface.co/glif/anime-blockprint-style/resolve/main/bwmanga.safetensors"
-    "insightface/models/antelopev2.zip https://huggingface.co/xwzliang/myloras/resolve/main/antelopev2.zip"
-    "insightface/models/buffalo_l.zip https://huggingface.co/xwzliang/myloras/resolve/main/buffalo_l.zip"
-    "ultralytics/bbox/face_yolov8m.pt https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt"
-    "ultralytics/bbox/hand_yolov9c.pt https://huggingface.co/Bingsu/adetailer/resolve/main/hand_yolov9c.pt"
-    "text_encoders/t5/t5xxl_fp16.safetensors https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors"
-    # "controlnet/FLUX.1/flux_shakker_labs_union_pro-fp8_e4m3fn.safetensors https://huggingface.co/Kijai/flux-fp8/resolve/main/flux_shakker_labs_union_pro-fp8_e4m3fn.safetensors"
-    "pulid/pulid_flux_v0.9.1.safetensors https://huggingface.co/guozinan/PuLID/resolve/main/pulid_flux_v0.9.1.safetensors"
 )
 
 CUSTOM_NODES=(
@@ -75,26 +71,25 @@ CUSTOM_NODES=(
 )
 
 CHECKPOINT_MODELS=(
-    "https://huggingface.co/LootingGod/WildCardX-SDXL-Turbo/resolve/main/wildcardxXLTURBO_wildcardxXLTURBOV10.safetensors"
+    # "https://huggingface.co/LootingGod/WildCardX-SDXL-Turbo/resolve/main/wildcardxXLTURBO_wildcardxXLTURBOV10.safetensors"
 )
 
 CLIP_MODELS=(
-    "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors"
-    # "https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/t5xxl_fp8_e4m3fn.safetensors"
+)
+
+TEXT_ENCODERS_MODELS=(
+)
+
+DIFFUSION_MODELS=(
 )
 
 UNET_MODELS=(
 )
 
 VAE_MODELS=(
-    "https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors"
 )
 
 LORA_MODELS=(
-    "https://huggingface.co/prithivMLmods/Canopus-Cute-Kawaii-Flux-LoRA/resolve/main/Canopus-Cute-Kawaii-Flux-LoRA.safetensors"
-    "https://huggingface.co/prithivMLmods/Flux.1-Dev-Ctoon-LoRA/resolve/main/ctoon.safetensors"
-    "https://huggingface.co/prithivMLmods/Knitted-Character-Flux-LoRA/resolve/main/Knitted-Character.safetensors"
-    "https://huggingface.co/xwzliang/myloras/resolve/main/Jixar_flux_v2.safetensors"
 )
 
 ESRGAN_MODELS=(
@@ -104,17 +99,19 @@ ESRGAN_MODELS=(
 )
 
 CONTROLNET_MODELS=(
-    "https://huggingface.co/TheMistoAI/MistoLine/resolve/main/mistoLine_fp16.safetensors"
+    # "https://huggingface.co/TheMistoAI/MistoLine/resolve/main/mistoLine_fp16.safetensors"
 )
 
 UPSCALE_MODELS=(
-    "https://huggingface.co/lokCX/4x-Ultrasharp/resolve/main/4x-UltraSharp.pth"
-    "https://huggingface.co/skbhadra/ClearRealityV1/resolve/main/4x-ClearRealityV1.pth"
 )
 
 ANIMATEDIFF_MODELS=(
-    "https://huggingface.co/hotshotco/Hotshot-XL/resolve/main/hsxl_temporal_layers.f16.safetensors"
+    # "https://huggingface.co/hotshotco/Hotshot-XL/resolve/main/hsxl_temporal_layers.f16.safetensors"
 )
+
+function fix_step_audio() {
+    mv /opt/ComfyUI/custom_nodes/ComfyUI_StepAudioTTS/Step-Audio-speakers /opt/ComfyUI/models/TTS/
+}
 
 function provisioning_get_custom_model_repos() {
     for entry in "${CUSTOM_MODEL_REPOS[@]}"; do
@@ -127,6 +124,18 @@ function provisioning_get_custom_model_repos() {
         git clone $repo "${path}/${dirname}"
         # Remove .git to save space
         rm -rf "${path}/${dirname}/.git"
+    done
+}
+
+function provisioning_get_custom_repos() {
+    for entry in "${CUSTOM_REPOS[@]}"; do
+        model_folder=$(echo "$entry" | awk '{print $1}')
+        repo=$(echo "$entry" | awk '{print $2}')
+        dirname="${repo##*/}"
+        path="/opt/ComfyUI/models/${model_folder}"
+        mkdir -p $path
+        git lfs install
+        git clone $repo "${path}/${dirname}"
     done
 }
 
@@ -143,15 +152,15 @@ function provisioning_start() {
     source /opt/ai-dock/etc/environment.sh
     source /opt/ai-dock/bin/venv-set.sh comfyui
 
-    # Get licensed models if HF_TOKEN set & valid
-    if provisioning_has_valid_hf_token; then
-        UNET_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors")
-        VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/ae.safetensors")
-    else
-        UNET_MODELS+=("https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8.safetensors")
-        VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors")
-        # sed -i 's/flux1-dev\.safetensors/flux1-schnell.safetensors/g' /opt/ComfyUI/web/scripts/defaultGraph.js
-    fi
+    # # Get licensed models if HF_TOKEN set & valid
+    # if provisioning_has_valid_hf_token; then
+    #     UNET_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors")
+    #     VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/ae.safetensors")
+    # else
+    #     UNET_MODELS+=("https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8.safetensors")
+    #     VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors")
+    #     # sed -i 's/flux1-dev\.safetensors/flux1-schnell.safetensors/g' /opt/ComfyUI/web/scripts/defaultGraph.js
+    # fi
 
     provisioning_print_header
     provisioning_get_apt_packages
@@ -160,6 +169,7 @@ function provisioning_start() {
     provisioning_get_pip_packages
     provisioning_get_custom_nodes
     provisioning_get_custom_model_repos
+    provisioning_get_custom_repos
     provisioning_get_custom_models
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/input" \
@@ -183,6 +193,12 @@ function provisioning_start() {
         "${WORKSPACE}/ComfyUI/models/clip" \
         "${CLIP_MODELS[@]}"
     provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/text_encoders" \
+        "${TEXT_ENCODERS_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/diffusion_models" \
+        "${DIFFUSION_MODELS[@]}"
+    provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/upscale_models" \
         "${UPSCALE_MODELS[@]}"
     provisioning_get_models \
@@ -191,7 +207,8 @@ function provisioning_start() {
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/animatediff_models" \
         "${ANIMATEDIFF_MODELS[@]}"
-    fix_insightface
+    # fix_insightface
+    fix_step_audio
     provisioning_print_end
 }
 
