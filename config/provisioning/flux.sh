@@ -152,6 +152,10 @@ function fix_insightface() {
     mv /workspace/ComfyUI/models/insightface/models/antelopev2/antelopev2/* /workspace/ComfyUI/models/insightface/models/antelopev2/
 }
 
+function post_process() {
+    cp /workspace/ComfyUI/me/comfyui/config/provisioning/* /workspace/ComfyUI/me/
+}
+
 function provisioning_start() {
     if [[ ! -d /opt/environments/python ]]; then 
         export MAMBA_BASE=true
@@ -209,6 +213,7 @@ function provisioning_start() {
         "${WORKSPACE}/ComfyUI/models/animatediff_models" \
         "${ANIMATEDIFF_MODELS[@]}"
     fix_insightface
+    post_process
     provisioning_print_end
 }
 
