@@ -130,7 +130,7 @@ function provisioning_start() {
     provisioning_get_nodes
     provisioning_get_pip_packages
     provisioning_get_custom_nodes
-    provisioning_get_pip_packages
+    pip install hf_transfer
     provisioning_get_custom_model_repos
     provisioning_get_huggingface_repos_to_cache
     provisioning_get_custom_models
