@@ -14,9 +14,9 @@ APT_PACKAGES=(
 )
 
 PIP_PACKAGES=(
+    "wheel"
     "huggingface_hub[cli]"
     "hf_transfer"
-    "wheel"
     "flash-attn --no-build-isolation"
     "ctranslate2==4.4.0"
 )
@@ -130,7 +130,7 @@ function provisioning_start() {
     provisioning_get_nodes
     provisioning_get_pip_packages
     provisioning_get_custom_nodes
-    pip install hf_transfer
+    pip install wheel huggingface_hub[cli] hf_transfer
     pip install ctranslate2==4.4.0
     provisioning_get_custom_model_repos
     provisioning_get_huggingface_repos_to_cache
