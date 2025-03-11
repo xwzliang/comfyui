@@ -108,6 +108,9 @@ function fix_insightface() {
 }
 
 function provisioning_start() {
+    pip install wheel huggingface_hub[cli] hf_transfer
+    pip install flash-attn --no-build-isolation
+    pip install ctranslate2==4.4.0
     if [[ ! -d /opt/environments/python ]]; then 
         export MAMBA_BASE=true
     fi
@@ -130,8 +133,6 @@ function provisioning_start() {
     provisioning_get_nodes
     provisioning_get_pip_packages
     provisioning_get_custom_nodes
-    pip install wheel huggingface_hub[cli] hf_transfer
-    pip install ctranslate2==4.4.0
     provisioning_get_custom_model_repos
     provisioning_get_huggingface_repos_to_cache
     provisioning_get_custom_models
