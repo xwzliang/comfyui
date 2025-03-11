@@ -153,6 +153,7 @@ function fix_insightface() {
 }
 
 function post_process() {
+    wget -O /workspace/home/user/.tmux.conf https://raw.githubusercontent.com/xwzliang/dotfiles/refs/heads/master/tmux.conf.symlink
     cp /workspace/ComfyUI/me/comfyui/config/provisioning/* /workspace/ComfyUI/me/
     mv /workspace/ComfyUI/models/liveportrait/LivePortrait_safetensors/* /workspace/ComfyUI/models/liveportrait/
 }
