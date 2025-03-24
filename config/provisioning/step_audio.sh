@@ -11,6 +11,7 @@
 APT_PACKAGES=(
     "libcudnn8"
     "espeak-ng"
+    "libportaudio2"
 )
 
 PIP_PACKAGES=(
