@@ -46,6 +46,7 @@ NODES=(
     "https://github.com/xwzliang/comfyui-kokoro"
     "https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet"
     "https://github.com/kijai/ComfyUI-WanVideoWrapper"
+    "https://github.com/welltop-cn/ComfyUI-TeaCache"
 )
 
 CUSTOM_INPUT_FILES=(
