@@ -27,6 +27,7 @@ NODES=(
     "https://github.com/giriss/comfy-image-saver"
     "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite"
     "https://github.com/kijai/ComfyUI-HunyuanVideoWrapper"
+    "https://github.com/HM-RunningHub/ComfyUI_RH_FramePack"
 )
 
 CUSTOM_INPUT_FILES=(

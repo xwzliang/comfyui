@@ -47,7 +47,7 @@ NODES=(
     "https://github.com/xwzliang/comfyui-kokoro"
     "https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet"
     "https://github.com/kijai/ComfyUI-WanVideoWrapper"
-    "https://github.com/billwuhao/ComfyUI_StepAudioTTS"
+    "https://github.com/xwzliang/ComfyUI_StepAudioTTS"
 )
 
 CUSTOM_INPUT_FILES=(

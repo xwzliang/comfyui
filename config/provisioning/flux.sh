@@ -45,6 +45,8 @@ NODES=(
     "https://github.com/xwzliang/ComfyUI-WhisperX"
     "https://github.com/xwzliang/comfyui-kokoro"
     "https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet"
+    "https://github.com/storyicon/comfyui_segment_anything"
+    "https://github.com/lquesada/ComfyUI-Inpaint-CropAndStitch"
 )
 
 CUSTOM_INPUT_FILES=(

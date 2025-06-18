@@ -2,6 +2,7 @@ version: "3.8"
 # Compose file build variables set in .env
 services:
   supervisor:
+    container_name: comfyui
     restart: always
     platform: linux/amd64
     build:
@@ -56,8 +57,8 @@ services:
     environment:
         # Don't enclose values in quotes
         - NVIDIA_DRIVER_CAPABILITIES=compute,utility
-        - AUTO_UPDATE=${AUTO_UPDATE:-true}
-        - DIRECT_ADDRESS=${DIRECT_ADDRESS:-0.0.0.0}
+        - AUTO_UPDATE=${AUTO_UPDATE:-false}
+        - DIRECT_ADDRESS=${DIRECT_ADDRESS:-192.168.5.102}
         - DIRECT_ADDRESS_GET_WAN=${DIRECT_ADDRESS_GET_WAN:-false}
         - WORKSPACE=${WORKSPACE:-/workspace}
         - WORKSPACE_SYNC=${WORKSPACE_SYNC:-false}
@@ -86,4 +87,4 @@ services:
         - SYNCTHING_UI_PORT_HOST=${SYNCTHING_UI_PORT_HOST:-8384}
         - SYNCTHING_TRANSPORT_PORT_HOST=${SYNCTHING_TRANSPORT_PORT_HOST:-22999}
         - SYNCTHING_URL=${SYNCTHING_URL:-}
-        #- PROVISIONING_SCRIPT=${PROVISIONING_SCRIPT:-}
+        - PROVISIONING_SCRIPT=${PROVISIONING_SCRIPT:-https://raw.githubusercontent.com/xwzliang/comfyui/refs/heads/main/config/provisioning/flux.sh}

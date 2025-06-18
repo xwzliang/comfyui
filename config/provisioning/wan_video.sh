@@ -88,12 +88,14 @@ CLIP_MODELS=(
 )
 
 TEXT_ENCODERS_MODELS=(
-    "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/umt5-xxl-enc-fp8_e4m3fn.safetensors"
+    # "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/umt5-xxl-enc-fp8_e4m3fn.safetensors"
+    "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp16.safetensors"
 )
 
 DIFFUSION_MODELS=(
     "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Wan2_1-I2V-14B-720P_fp8_e4m3fn.safetensors"
     "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Wan2_1-T2V-1_3B_bf16.safetensors"
+    #"https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/diffusion_models/wan2.1_vace_14B_fp16.safetensors"
 )
 
 UNET_MODELS=(
@@ -102,6 +104,7 @@ UNET_MODELS=(
 VAE_MODELS=(
     # "https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors"
     "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Wan2_1_VAE_bf16.safetensors"
+    # "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors"
 )
 
 LORA_MODELS=(
@@ -163,6 +166,9 @@ function fix_insightface() {
 }
 
 function provisioning_start() {
+    pip install wheel huggingface_hub[cli] hf_transfer
+    pip install flash-attn --no-build-isolation
+    pip install ctranslate2==4.4.0
     if [[ ! -d /opt/environments/python ]]; then 
         export MAMBA_BASE=true
     fi
