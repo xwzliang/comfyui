@@ -12,7 +12,7 @@ services:
         PYTORCH_VERSION: ${PYTORCH_VERSION:-2.4.1}
         COMFYUI_BUILD_REF: ${COMFYUI_BUILD_REF:-}
 
-    image: aidockorg/comfyui-cuda:latest
+    image: mycomfyui:1.0.1
     
     # For Nvidia GPU's - You probably want to uncomment this
     deploy:
@@ -56,17 +56,18 @@ services:
    
     environment:
         # Don't enclose values in quotes
+        - SUPERVISOR_NO_AUTOSTART=syncthing
         - NVIDIA_DRIVER_CAPABILITIES=compute,utility
         - AUTO_UPDATE=${AUTO_UPDATE:-false}
         - DIRECT_ADDRESS=${DIRECT_ADDRESS:-192.168.5.102}
         - DIRECT_ADDRESS_GET_WAN=${DIRECT_ADDRESS_GET_WAN:-false}
         - WORKSPACE=${WORKSPACE:-/workspace}
         - WORKSPACE_SYNC=${WORKSPACE_SYNC:-false}
-        - CF_TUNNEL_TOKEN=${CF_TUNNEL_TOKEN:-}
-        - CF_QUICK_TUNNELS=${CF_QUICK_TUNNELS:-true}
+        # - CF_TUNNEL_TOKEN=${CF_TUNNEL_TOKEN:-}
+        - CF_QUICK_TUNNELS=false
         - CIVITAI_TOKEN=${CIVITAI_TOKEN:-}
         - HF_TOKEN=${HF_TOKEN:-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}
-        - WEB_ENABLE_AUTH=${WEB_ENABLE_AUTH:-true}
+        - WEB_ENABLE_AUTH=false
         - WEB_ENABLE_HTTPS=${WEB_ENABLE_HTTPS:-false}
         - WEB_USER=${WEB_USER:-user}
         - WEB_PASSWORD=${WEB_PASSWORD:-password}

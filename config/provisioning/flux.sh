@@ -95,7 +95,7 @@ VAE_MODELS=(
 )
 
 LORA_MODELS=(
-    # "https://huggingface.co/strangerzonehf/Flux-Super-Blend-LoRA/resolve/main/Super-Blend.safetensors"
+    "https://huggingface.co/strangerzonehf/Flux-Super-Blend-LoRA/resolve/main/Super-Blend.safetensors"
     "https://huggingface.co/prithivMLmods/Canopus-Cute-Kawaii-Flux-LoRA/resolve/main/Canopus-Cute-Kawaii-Flux-LoRA.safetensors"
     "https://huggingface.co/prithivMLmods/Flux.1-Dev-Ctoon-LoRA/resolve/main/ctoon.safetensors"
     "https://huggingface.co/prithivMLmods/Knitted-Character-Flux-LoRA/resolve/main/Knitted-Character.safetensors"
