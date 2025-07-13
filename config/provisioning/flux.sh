@@ -47,6 +47,8 @@ NODES=(
     "https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet"
     "https://github.com/storyicon/comfyui_segment_anything"
     "https://github.com/lquesada/ComfyUI-Inpaint-CropAndStitch"
+    "https://github.com/kijai/ComfyUI-segment-anything-2"
+    "https://github.com/kijai/ComfyUI-Florence2"
 )
 
 CUSTOM_INPUT_FILES=(

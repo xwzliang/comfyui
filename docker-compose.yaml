@@ -12,7 +12,7 @@ services:
         PYTORCH_VERSION: ${PYTORCH_VERSION:-2.4.1}
         COMFYUI_BUILD_REF: ${COMFYUI_BUILD_REF:-}
 
-    image: mycomfyui:1.0.1
+    image: mycomfyui:1.0.2
     
     # For Nvidia GPU's - You probably want to uncomment this
     deploy:
