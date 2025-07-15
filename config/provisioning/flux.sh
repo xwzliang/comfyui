@@ -124,6 +124,9 @@ ANIMATEDIFF_MODELS=(
     # "https://huggingface.co/hotshotco/Hotshot-XL/resolve/main/hsxl_temporal_layers.f16.safetensors"
 )
 
+DIFFUSION_MODELS=(
+)
+
 function provisioning_get_custom_model_repos() {
     for entry in "${CUSTOM_MODEL_REPOS[@]}"; do
         model_folder=$(echo "$entry" | awk '{print $1}')
@@ -173,6 +176,8 @@ function provisioning_start() {
     if provisioning_has_valid_hf_token; then
         UNET_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors")
         VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/ae.safetensors")
+        CUSTOM_MODELS+=("vae/flux_context_vae.safetensors https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev/resolve/main/ae.safetensors")
+        DIFFUSION_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev/resolve/main/flux1-kontext-dev.safetensors")
     else
         UNET_MODELS+=("https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8.safetensors")
         VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors")
@@ -197,6 +202,9 @@ function provisioning_start() {
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/unet" \
         "${UNET_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/diffusion_models" \
+        "${DIFFUSION_MODELS[@]}"
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/loras" \
         "${LORA_MODELS[@]}"
