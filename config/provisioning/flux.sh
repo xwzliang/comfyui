@@ -49,6 +49,8 @@ NODES=(
     "https://github.com/lquesada/ComfyUI-Inpaint-CropAndStitch"
     "https://github.com/kijai/ComfyUI-segment-anything-2"
     "https://github.com/kijai/ComfyUI-Florence2"
+    "https://github.com/LAOGOU-666/Comfyui-LG_Relight"
+    "https://github.com/john-mnz/ComfyUI-Inspyrenet-Rembg"
 )
 
 CUSTOM_INPUT_FILES=(
@@ -82,6 +84,7 @@ CUSTOM_NODES=(
 
 CHECKPOINT_MODELS=(
     # "https://huggingface.co/LootingGod/WildCardX-SDXL-Turbo/resolve/main/wildcardxXLTURBO_wildcardxXLTURBOV10.safetensors"
+    "https://huggingface.co/Bruhn/Umm/resolve/c97046bb3c675c976cb4c3eb7f9dddf0ea4cb97a/STOIQONewreality_SD10.safetensors"
 )
 
 CLIP_MODELS=(
